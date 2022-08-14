@@ -26,10 +26,10 @@ jobs:
       - name: Install 32bit compat
         shell: bash
         run: node ./.github/workflows/scripts/install32bitCompat.js
-      - name: Build 32-Bit
-        if: always()
-        shell: cmd
-        run: lazbuild --build-mode="Release 32-bit" --no-write-project "Cheat Engine/cheatengine.lpi"
+#       - name: Build 32-Bit
+#         if: always()
+#         shell: cmd
+#         run: lazbuild --build-mode="Release 32-bit" --no-write-project "Cheat Engine/cheatengine.lpi"
       - name: Build 64-Bit
         if: always()
         shell: cmd
