@@ -38,6 +38,10 @@ jobs:
         if: always()
         shell: cmd
         run: lazbuild --build-mode="Release 64-bit O4 AVX2" --no-write-project "Cheat Engine/cheatengine.lpi"
+      - name: Removing unused files
+        shell: bash
+        run: |
+          rm -rf "./Cheat Engine/bin/*.pdb"
       - name: Zip artifact
         if: always()
         shell: cmd
