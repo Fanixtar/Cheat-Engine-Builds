@@ -34,6 +34,7 @@ jobs:
       with:
         lazarus-version: ${{ env.LAZARUS_VERSION }}
         include-packages: ${{ steps.get-dependencies.outputs.dependencies }}
+        with-cache: false
         
     - name: Install 32bit Compatibility
       shell: bash
