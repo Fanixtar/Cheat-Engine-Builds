@@ -23,6 +23,7 @@ jobs:
         with:
           lazarus-version: ${{ env.LAZARUS_VERSION }}
           include-packages: ${{ steps.get-dependencies.outputs.dependencies }}
+          with-cache: false
       - name: Install 32bit compat
         shell: bash
         run: node ./.github/workflows/scripts/install32bitCompat.js
