@@ -42,13 +42,14 @@ jobs:
         shell: bash
         run: |
           rm -rf "./Cheat Engine/bin/*.pdb"
-      - name: Zip artifact
-        if: always()
-        shell: cmd
-        run: 7z a -tzip release.zip * -r
-        working-directory: "./Cheat Engine/bin"
-      - name: Release artifact
-        uses: actions/upload-artifact@v2
+#       - name: Zip artifact
+#         if: always()
+#         shell: cmd
+#         run: 7z a -tzip release.zip * -r
+#         working-directory: "./Cheat Engine/bin"
+      - name: Upload latest artifact
+        uses: actions/upload-artifact@v3.1.0
         with:
-          name: Release
-          path: "Cheat Engine/bin/release.zip"
+          name: Cheat Engine-release
+          path: ./Cheat Engine/*
+          if-no-files-found: error
