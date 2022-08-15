@@ -52,5 +52,5 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: Cheat Engine-release
-          path: ./Cheat Engine/*
+          path: ./Cheat Engine/bin/*
           if-no-files-found: error
