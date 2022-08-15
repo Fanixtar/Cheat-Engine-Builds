@@ -57,11 +57,11 @@ jobs:
     - name: Removing unused files
       shell: bash
       run: |
-        rm -rf "./cheat-engine/Cheat Engine/bin/*.pdb"
+        find . -type f -name '*.dbg' -delete
       
     - name: Upload latest artifact
       uses: actions/upload-artifact@v3.1.0
       with:
         name: Cheat Engine-release
-        path: ./cheat-engine/Cheat Engine/*
+        path: ./cheat-engine/Cheat Engine/bin/*
         if-no-files-found: error
