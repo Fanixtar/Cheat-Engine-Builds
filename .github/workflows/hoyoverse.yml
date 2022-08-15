@@ -42,7 +42,7 @@ jobs:
       - name: Removing unused files
         shell: bash
         run: |
-          rm -rf "./Cheat Engine/bin/*.pdb"
+          find . -type f -name '*.dbg' -delete
 #       - name: Zip artifact
 #         if: always()
 #         shell: cmd
