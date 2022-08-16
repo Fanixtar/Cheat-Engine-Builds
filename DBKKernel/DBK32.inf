@@ -73,7 +73,7 @@ KmdfLibraryVersion = $KMDFVERSION$
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
 ManufacturerName="HOYOVERSE EX" ;TODO: Replace with your manufacturer name
-ClassName="Analytic" ; TODO: edit ClassName
+ClassName="System" ; TODO: edit ClassName
 DiskName = "HOYOVERSEEX32 Installation Disk"
 HOYOVERSEEX32.DeviceDesc = "HOYOVERSEEX32 Device"
 HOYOVERSEEX32.SVCDESC = "HOYOVERSEEX32 Service"
