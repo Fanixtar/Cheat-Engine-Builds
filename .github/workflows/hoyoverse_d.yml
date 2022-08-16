@@ -1,0 +1,25 @@
+name: Driver (HOYOVERSE)
+
+on: workflow_dispatch
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+        
+      - name: Build
+        shell: cmd
+        run: msbuild /t:clean /t:build DBKKernel\DBKKernel.vcxproj /p:Configuration="Release without sig" /p:Platform=x64 /p:PostBuildEventUseInBuild=false
+
+      - name: Upload latest artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Driver-release
+          path: Cheat Engine\bin
