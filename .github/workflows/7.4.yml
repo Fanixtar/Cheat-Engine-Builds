@@ -1,0 +1,66 @@
+name: Publish (7.4)
+
+on: 
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    
+    - name: Setup job variables
+      uses: allenevans/set-env@v2.0.1
+      with:
+        LAZARUS_VERSION: 2.0.10
+        FPC_VERSION: 3.2.0
+      
+    - name: Get Lazarus dependencies
+      shell: bash
+      id: get-dependencies
+      run: echo "::set-output name=dependencies::$(node ./.github/workflows/scripts/getPackages.js)"
+      
+    - name: Install Lazarus
+      uses: gcarreno/setup-lazarus@v3.2
+      with:
+        lazarus-version: ${{ env.LAZARUS_VERSION }}
+        include-packages: ${{ steps.get-dependencies.outputs.dependencies }}
+        with-cache: false
+        
+    - name: Install 32bit Compatibility
+      shell: bash
+      run: node ./.github/workflows/scripts/install32bitCompat.js
+
+    - name: Clone
+      shell: bash
+      run: git clone --recurse-submodules https://github.com/cheat-engine/cheat-engine
+
+    - name: Revert to 7.4
+      working-directory: cheat-engine
+      shell: bash
+      run: git reset --hard e9e10530e47bf686a28060dcb2681643971514b9
+      
+    - name: Build 64-Bit
+      if: always()
+      shell: cmd
+      run: lazbuild --build-mode="Release 64-bit" --no-write-project "cheat-engine/Cheat Engine/cheatengine.lpi"
+      
+    - name: Build 64-Bit O4 AVX2
+      if: always()
+      shell: cmd
+      run: lazbuild --build-mode="Release 64-bit O4 AVX2" --no-write-project "cheat-engine/Cheat Engine/cheatengine.lpi"
+
+    - name: Removing unused files
+      shell: bash
+      run: |
+        find . -type f -name '*.dbg' -delete
+      
+    - name: Upload latest artifact
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: Cheat Engine-release
+        path: ./cheat-engine/Cheat Engine/bin/*
+        if-no-files-found: error
