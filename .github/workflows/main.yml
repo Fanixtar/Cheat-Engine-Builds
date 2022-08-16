@@ -20,9 +20,6 @@ jobs:
       with:
         LAZARUS_VERSION: 2.2.2
         FPC_VERSION: 3.2.2
-        
-    - name: Checkout
-      uses: actions/checkout@v3
       
     - name: Get Lazarus dependencies
       shell: bash
